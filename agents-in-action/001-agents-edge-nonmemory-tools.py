@@ -7,7 +7,6 @@ from langgraph.graph import START, StateGraph
 from langgraph.prebuilt import ToolNode
 from langgraph.prebuilt import tools_condition
 
-
 _ = load_dotenv(find_dotenv())
 
 openai_api_key = os.environ["OPENAI_API_KEY"]
@@ -79,7 +78,6 @@ messages = react_graph.invoke({"messages": messages})
 
 for m in messages['messages']:
     m.pretty_print()
-
 
 messages = [HumanMessage(content="Add 3 and 4. Multiply the output by 2. Divide the output by 5")]
 messages = react_graph.invoke({"messages": messages})
