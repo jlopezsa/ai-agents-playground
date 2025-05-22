@@ -6,12 +6,15 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import START, StateGraph
 from langgraph.prebuilt import ToolNode
 from langgraph.prebuilt import tools_condition
+from langgraph.checkpoint.memory import MemorySaver
 
 _ = load_dotenv(find_dotenv())
 
 openai_api_key = os.environ["OPENAI_API_KEY"]
 base_url = os.environ["ORCHESTATOR_BASE_URL"]
 model_name = os.environ["ORCHESTATOR_MODEL"]
+
+memory = MemorySaver()
 
 model = ChatOpenAI(
     base_url=base_url, 
@@ -71,17 +74,25 @@ builder.add_conditional_edges(
 builder.add_edge("tools", "assistant")
 
 # Compile the graph
-react_graph = builder.compile()
+react_graph_memory = builder.compile(checkpointer=memory)
 
-messages = [HumanMessage(content="What was the relationship between Marilyn and JFK?")]
-messages = react_graph.invoke({"messages": messages})
+# PAY ATTENTION HERE: see how we specify a thread
+config = {"configurable": {"thread_id": "1"}}
+
+# Enter the input
+messages = [HumanMessage(content="Add 3 and 4.")]
+
+# PAY ATTENTION HERE: see how we add config to referr to the thread_id
+messages = react_graph_memory.invoke({"messages": messages},config)
 
 for m in messages['messages']:
     m.pretty_print()
 
-messages = [HumanMessage(content="Add 3 and 4. Multiply the output by 2. Divide the output by 5")]
-messages = react_graph.invoke({"messages": messages})
+# PAY ATTENTION HERE: see how we check if the app has memory
+messages = [HumanMessage(content="Multiply that by 2.")]
+
+# Again, see how we use config here to referr to the thread_id
+messages = react_graph_memory.invoke({"messages": messages}, config)
 
 for m in messages['messages']:
     m.pretty_print()
-    

@@ -12,6 +12,7 @@ langchain-openai = "^0.3.17"
 langgraph = "^0.4.5"
 colorlog = "^6.9.0"
 pillow = "^11.2.1"
+streamlit = "^1.45.1"
 
 
 [build-system]
