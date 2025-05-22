@@ -6,8 +6,6 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import START, StateGraph
 from langgraph.prebuilt import ToolNode
 from langgraph.prebuilt import tools_condition
-from PIL import Image
-import io
 
 _ = load_dotenv(find_dotenv())
 
@@ -21,8 +19,7 @@ model = ChatOpenAI(
     )
 
 def multiply(a: int, b:int) -> int:
-    """
-    Multiply a and b.
+    """Multiply a and b.
     Args:
         a: first int
         b: second int
@@ -30,8 +27,7 @@ def multiply(a: int, b:int) -> int:
     return a*b
 
 def add(a:int, b:int) -> int:
-    """
-    Adds a and b.
+    """Adds a and b.
     Args:
         a: first int
         b: second int
@@ -39,8 +35,7 @@ def add(a:int, b:int) -> int:
     return a+b
 
 def divide(a: int, b:int) -> int:
-    """
-    Divide a and b.
+    """Divide a and b.
     Args:
         a: first int
         b: second int
@@ -90,10 +85,3 @@ messages = react_graph.invoke({"messages": messages})
 for m in messages['messages']:
     m.pretty_print()
     
-
-graph = react_graph.get_graph(xray=True)
-png_bytes = graph.draw_mermaid_png()
-image = Image.open(io.BytesIO(png_bytes))
-image.save("001-agents-edge-nonmemory-tools.png")
-
-print("✅ Graph image saved as graph.png")
