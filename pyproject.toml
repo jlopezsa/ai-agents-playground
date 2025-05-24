@@ -13,7 +13,11 @@ langgraph = "^0.4.5"
 colorlog = "^6.9.0"
 pillow = "^11.2.1"
 streamlit = "^1.45.1"
+numexpr = "^2.10.2"
 
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.3.2"
 
 [build-system]
 requires = ["poetry-core"]
