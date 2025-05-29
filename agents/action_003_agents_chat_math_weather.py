@@ -1,14 +1,13 @@
 import os
-from dotenv import load_dotenv, find_dotenv
-from langgraph.checkpoint.memory import MemorySaver
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage
-from langgraph.graph import MessagesState
-import requests
-import numexpr
-from langgraph.graph import START, StateGraph
-from langgraph.prebuilt import ToolNode, tools_condition
 
+import numexpr
+import requests
+from dotenv import find_dotenv, load_dotenv
+from langchain_core.messages import SystemMessage
+from langchain_openai import ChatOpenAI
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.graph import START, MessagesState, StateGraph
+from langgraph.prebuilt import ToolNode, tools_condition
 
 _ = load_dotenv(find_dotenv())
 
@@ -18,10 +17,7 @@ model_name = os.environ["ORCHESTATOR_MODEL"]
 
 memory = MemorySaver()
 
-model = ChatOpenAI(
-    base_url=base_url,
-    model=model_name
-)
+model = ChatOpenAI(base_url=base_url, model=model_name)
 
 
 class MessagesState(MessagesState):
@@ -31,23 +27,25 @@ class MessagesState(MessagesState):
 
 # System message
 sys_msg = SystemMessage(
-    content="You are a helpful assistant tasked with performing arithmetic on a set of inputs.")
+    content="You are a helpful assistant tasked with performing arithmetic on a set of inputs."
+)
+
 
 # Herramienta 1: Calculadora
-
-
-def calculate(expression: str) -> str:
+def calculate(expression: str):
     """Evalúa una expresión matemática usando numexpr.
+
     Args:
         expression (str): Expresión matemática. Ej: "2 * (3 + 5)".
+
     Returns:
         str: Resultado como string o mensaje de error.
+
     Raises:
         SyntaxError: Si la expresión tiene formato inválido.
-        TypeError: Si se usan tipos incorrectos."""
-
-    print("---- Tool calculate ----")
-
+        TypeError: Si se usan tipos incorrectos.
+    """
+    print("--- Tool: calculate ---")
     try:
         return str(numexpr.evaluate(expression))
     except (SyntaxError, TypeError) as e:
