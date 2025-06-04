@@ -21,8 +21,13 @@ model_name = os.environ["ORCHESTATOR_MODEL"]
 llm = ChatOpenAI(base_url=base_url, model=model_name)
 
 
-# Field se usa para validaciones y metadatos de los atributos de la clase
+# Clase Analyst
+# Definir agentes con personalidades específicas
+# Mantener consistencia en los roles de los agentes
+# Generar descripciones automáticas para prompts
+# Facilitar la serialización/deserialización de agentes
 class Analyst(BaseModel):
+    # Field se usa para validaciones y metadatos de los atributos de la clase
     affiliation: str = Field(
         description="Primary affiliation of the analyst.",
     )
@@ -34,17 +39,20 @@ class Analyst(BaseModel):
         description="Description of the analyst focus, concerns, and motives.",
     )
 
+    # @property es una característica nativa de Python que permite definir un método que se puede acceder como si fuera un atributo.
     @property
     def persona(self):
         return f"Name: {self.name}\nRole: {self.role}\nAffiliation: {self.affiliation}\nDescription: {self.description}\n"
 
 
+# Propósito: Contiene una lista de analistas y los describe como un grupo relacionado con un tema.
 class Perspectives(BaseModel):
     analysts: List[Analyst] = Field(
         description="Comprehensive list of analysts with their roles and affiliations.",
     )
 
 
+# Propósito: Almacena el estado del proceso de generación de analistas.
 class GenerateAnalystsState(TypedDict):
     topic: str  # Research topic
     max_analysts: int  # Number of analysts
@@ -114,19 +122,24 @@ def should_continue(state: GenerateAnalystsState):
 
 
 # Add nodes and edges
+# State of graph
 builder = StateGraph(GenerateAnalystsState)
 
+# Nodes
 builder.add_node("create_analysts", create_analysts)
 builder.add_node("human_feedback", human_feedback)
 
+# Edges
 builder.add_edge(START, "create_analysts")
 builder.add_edge("create_analysts", "human_feedback")
 builder.add_conditional_edges(
     "human_feedback", should_continue, ["create_analysts", END]
 )
 
-# Compile
+# Memory
 memory = MemorySaver()
+
+# Compile
 graph = builder.compile(interrupt_before=["human_feedback"], checkpointer=memory)
 
 graph_image = graph.get_graph(xray=True)
@@ -136,6 +149,7 @@ image.save("ai_analyst_generator.png")
 
 print("✅ Graph image saved as graph.png")
 
+# Call Agent
 max_analysts = 3
 topic = "The main topic of use artificial inteligence in channel model wirelles communications"
 thread = {"configurable": {"thread_id": "1"}}
@@ -155,8 +169,8 @@ for event in graph.stream(
 
     if analysts:
         for analyst in analysts:
+            print("-" * 25, "🤖", "-" * 25)
             print(f"Name: {analyst.name}")
             print(f"Affiliation: {analyst.affiliation}")
             print(f"Role: {analyst.role}")
             print(f"Description: {analyst.description}")
-            print("-" * 50)
