@@ -64,15 +64,10 @@ analyst_instructions = """You are tasked with creating a set of AI analyst perso
 
 1. First, review the research topic:
 {topic}
-        
 2. Examine any editorial feedback that has been optionally provided to guide creation of the analysts: 
-        
 {human_analyst_feedback}
-    
 3. Determine the most interesting themes based upon documents and / or feedback above.
-                    
 4. Pick the top {max_analysts} themes.
-
 5. Assign one analyst to each theme."""
 
 
@@ -142,11 +137,11 @@ memory = MemorySaver()
 # Compile
 graph = builder.compile(interrupt_before=["human_feedback"], checkpointer=memory)
 
+# Create a image graph
 graph_image = graph.get_graph(xray=True)
 png_bytes = graph_image.draw_mermaid_png()
 image = Image.open(io.BytesIO(png_bytes))
 image.save("ai_analyst_generator.png")
-
 print("✅ Graph image saved as graph.png")
 
 # Call Agent
@@ -161,7 +156,7 @@ for event in graph.stream(
         "max_analysts": max_analysts,
     },
     thread,
-    stream_mode="values",
+    stream_mode="values",  # Permite procesar los resultados a medida que se generan, en lugar de esperar a que termine toda la ejecución.
 ):
 
     # Review
@@ -174,3 +169,59 @@ for event in graph.stream(
             print(f"Affiliation: {analyst.affiliation}")
             print(f"Role: {analyst.role}")
             print(f"Description: {analyst.description}")
+
+
+# Get state and look at next node
+state = graph.get_state(thread)
+state.next
+print("---> State next: ", state.next)
+
+# Human Feedback
+graph.update_state(
+    thread,
+    {
+        "human_analyst_feedback": "Add in someone from a startup to add an entrepreneur perspective"
+    },
+    as_node="human_feedback",
+)
+
+print("====> Second execution <=====")
+
+# Continue the graph execution
+for event in graph.stream(None, thread, stream_mode="values"):
+    # Review
+    analysts = event.get("analysts", "")
+    if analysts:
+        for analyst in analysts:
+            print(f"Name: {analyst.name}")
+            print(f"Affiliation: {analyst.affiliation}")
+            print(f"Role: {analyst.role}")
+            print(f"Description: {analyst.description}")
+            print("-" * 50)
+
+
+# No more human feedback
+# If we are satisfied, then we simply supply no feedback
+further_feedack = None
+graph.update_state(
+    thread, {"human_analyst_feedback": further_feedack}, as_node="human_feedback"
+)
+
+
+# Continue the graph execution to end
+for event in graph.stream(None, thread, stream_mode="updates"):
+    print("--Node--")
+    node_name = next(iter(event.keys()))
+    print(node_name)
+
+final_state = graph.get_state(thread)
+analysts = final_state.values.get("analysts")
+
+
+print("========> FINAL ANALYSTS <===========")
+for analyst in analysts:
+    print("-" * 25, "🤖", "-" * 25)
+    print(f"Name: {analyst.name}")
+    print(f"Affiliation: {analyst.affiliation}")
+    print(f"Role: {analyst.role}")
+    print(f"Description: {analyst.description}")
