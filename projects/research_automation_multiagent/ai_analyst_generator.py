@@ -184,7 +184,9 @@ state.next
 print("---> State next: ", state.next)
 
 # =================== Call Agent with interruptions =========================
-# Human Feedback
+# Human Feedback simulation
+# Actualiza el estado del graph como si el proceso se hubiera detenido para recibir retroalimentación humana y se hubiera recibido un input.
+# as_node="human_feedback" – Indica que la retroalimentación debe aplicarse en el nodo de retroalimentación humana.
 graph.update_state(
     thread,
     {
@@ -211,6 +213,7 @@ for event in graph.stream(None, thread, stream_mode="values"):
 # No more human feedback
 # If we are satisfied, then we simply supply no feedback
 further_feedack = None
+
 graph.update_state(
     thread, {"human_analyst_feedback": further_feedack}, as_node="human_feedback"
 )
@@ -222,6 +225,7 @@ for event in graph.stream(None, thread, stream_mode="updates"):
     node_name = next(iter(event.keys()))
     print(node_name)
 
+# Obtiene el state final del graph después de la ejecución.
 final_state = graph.get_state(thread)
 analysts = final_state.values.get("analysts")
 
