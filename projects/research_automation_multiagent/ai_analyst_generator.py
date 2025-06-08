@@ -60,6 +60,7 @@ class GenerateAnalystsState(TypedDict):
     analysts: List[Analyst]  # Analyst asking questions
 
 
+# Principal prompt
 analyst_instructions = """You are tasked with creating a set of AI analyst personas. Follow these instructions carefully:
 
 1. First, review the research topic:
@@ -71,6 +72,8 @@ analyst_instructions = """You are tasked with creating a set of AI analyst perso
 5. Assign one analyst to each theme."""
 
 
+# ========== Definiendo los nodos ===============
+# Node: create_analysts
 def create_analysts(state: GenerateAnalystsState):
     """Create analysts"""
 
@@ -98,11 +101,13 @@ def create_analysts(state: GenerateAnalystsState):
     return {"analysts": analysts.analysts}
 
 
+# Node: human_feedback
 def human_feedback(state: GenerateAnalystsState):
     """No-op node that should be interrupted on"""
     pass
 
 
+# Conditional edge
 def should_continue(state: GenerateAnalystsState):
     """Return the next node to execute"""
 
@@ -116,6 +121,7 @@ def should_continue(state: GenerateAnalystsState):
     return END
 
 
+# ==================== Construyendo el grafo ===================
 # Add nodes and edges
 # State of graph
 builder = StateGraph(GenerateAnalystsState)
@@ -137,14 +143,15 @@ memory = MemorySaver()
 # Compile
 graph = builder.compile(interrupt_before=["human_feedback"], checkpointer=memory)
 
-# Create a image graph
+
+# ===================== Create a image graph =====================
 graph_image = graph.get_graph(xray=True)
 png_bytes = graph_image.draw_mermaid_png()
 image = Image.open(io.BytesIO(png_bytes))
 image.save("ai_analyst_generator.png")
 print("✅ Graph image saved as graph.png")
 
-# Call Agent
+# =================== Call Agent without interruptions =========================
 max_analysts = 3
 topic = "The main topic of use artificial inteligence in channel model wirelles communications"
 thread = {"configurable": {"thread_id": "1"}}
@@ -176,6 +183,7 @@ state = graph.get_state(thread)
 state.next
 print("---> State next: ", state.next)
 
+# =================== Call Agent with interruptions =========================
 # Human Feedback
 graph.update_state(
     thread,
