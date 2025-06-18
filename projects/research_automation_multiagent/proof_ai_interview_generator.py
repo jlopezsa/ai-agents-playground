@@ -1,10 +1,8 @@
 import io
 import os
-import pickle
 from ast import operator
 from typing import Annotated
 
-import cloudpickle as pickle
 from dotenv import find_dotenv, load_dotenv
 from langchain_community.document_loaders import WikipediaLoader
 from langchain_community.tools.tavily_search import TavilySearchResults
@@ -23,8 +21,6 @@ from projects.research_automation_multiagent.proof_ai_analyst_generator import A
 from pydantic import BaseModel, Field
 
 _ = load_dotenv(find_dotenv())
-
-print("^^^^^^^^^^ 🏁🏁 START SECOND AGENT 🏁🏁 ^^^^^^^^^^^^")
 
 openai_api_key = os.environ["OPENAI_API_KEY"]
 base_url = os.environ["ORCHESTATOR_BASE_URL"]
@@ -326,39 +322,45 @@ def write_section(state: InterviewState):
 
 
 # ================== Constuyendo el grafo =================
-def build_interview_graph():
-    interview_builder = StateGraph(InterviewState)
+interview_builder = StateGraph(InterviewState)
 
-    # Nodes
-    interview_builder.add_node("ask_question", generate_question)
-    interview_builder.add_node("search_web", search_web)
-    interview_builder.add_node("search_wikipedia", search_wikipedia)
-    interview_builder.add_node("answer_question", generate_answer)
-    interview_builder.add_node("save_interview", save_interview)
-    interview_builder.add_node("write_section", write_section)
+# Nodes
+interview_builder.add_node("ask_question", generate_question)
+interview_builder.add_node("search_web", search_web)
+interview_builder.add_node("search_wikipedia", search_wikipedia)
+interview_builder.add_node("answer_question", generate_answer)
+interview_builder.add_node("save_interview", save_interview)
+interview_builder.add_node("write_section", write_section)
 
-    # Edge
-    interview_builder.add_edge(START, "ask_question")
-    interview_builder.add_edge("ask_question", "search_web")
-    interview_builder.add_edge("ask_question", "search_wikipedia")
-    interview_builder.add_edge("search_web", "answer_question")
-    interview_builder.add_edge("search_wikipedia", "answer_question")
+# Edge
+interview_builder.add_edge(START, "ask_question")
+interview_builder.add_edge("ask_question", "search_web")
+interview_builder.add_edge("ask_question", "search_wikipedia")
+interview_builder.add_edge("search_web", "answer_question")
+interview_builder.add_edge("search_wikipedia", "answer_question")
 
-    # PAY ATTENTION: see how we define the conditional edge
-    interview_builder.add_conditional_edges(
-        "answer_question", route_messages, ["ask_question", "save_interview"]
-    )
+# PAY ATTENTION: see how we define the conditional edge
+interview_builder.add_conditional_edges(
+    "answer_question", route_messages, ["ask_question", "save_interview"]
+)
 
-    interview_builder.add_edge("save_interview", "write_section")
-    interview_builder.add_edge("write_section", END)
+interview_builder.add_edge("save_interview", "write_section")
+interview_builder.add_edge("write_section", END)
 
-    # Interview
-    memory = MemorySaver()
+# Interview
+memory = MemorySaver()
 
-    # PAY ATTENTION: see how we use .with_config
-    return interview_builder.compile(checkpointer=memory).with_config(
-        run_name="Conduct Interviews"
-    )
+# PAY ATTENTION: see how we use .with_config
+interview_graph = interview_builder.compile(checkpointer=memory).with_config(
+    run_name="Conduct Interviews"
+)
 
+# View
+# display(Image(interview_graph.get_graph().draw_mermaid_png()))
 
-print("^^^^^^^^^^ 🚩🚩 END SECOND AGENT 🚩🚩 ^^^^^^^^^^^^")
+# ===================== Create a image graph =====================
+graph_image = interview_graph.get_graph(xray=True)
+png_bytes = graph_image.draw_mermaid_png()
+image = Image.open(io.BytesIO(png_bytes))
+image.save("ai_interview_generator.png")
+print("✅ Graph image saved as graph.png")

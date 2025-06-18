@@ -13,9 +13,6 @@ from typing_extensions import TypedDict
 
 _ = load_dotenv(find_dotenv())
 
-print("^^^^^^^^^^ 🏁🏁 START FIRST AGENT 🏁🏁 ^^^^^^^^^^^^")
-
-
 openai_api_key = os.environ["OPENAI_API_KEY"]
 base_url = os.environ["ORCHESTATOR_BASE_URL"]
 model_name = os.environ["ORCHESTATOR_MODEL"]
@@ -147,6 +144,13 @@ memory = MemorySaver()
 graph = builder.compile(interrupt_before=["human_feedback"], checkpointer=memory)
 
 
+# ===================== Create a image graph =====================
+graph_image = graph.get_graph(xray=True)
+png_bytes = graph_image.draw_mermaid_png()
+image = Image.open(io.BytesIO(png_bytes))
+image.save("ai_analyst_generator.png")
+print("✅ Graph image saved as graph.png")
+
 # =================== Call Agent without interruptions =========================
 max_analysts = 3
 topic = "The main topic of use artificial inteligence in channel model wirelles communications"
@@ -233,5 +237,3 @@ for analyst in analysts:
     print(f"Affiliation: {analyst.affiliation}")
     print(f"Role: {analyst.role}")
     print(f"Description: {analyst.description}")
-
-print("^^^^^^^^^^ 🚩🚩 END FIRST AGENT 🚩🚩 ^^^^^^^^^^^^")
