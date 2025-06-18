@@ -249,7 +249,7 @@ graph = builder.compile(interrupt_before=["human_feedback"], checkpointer=memory
 
 # Inputs
 max_analysts = 3
-topic = "Main applications of use bio-nanotechnology with artificial intelligence"
+topic = "Treatments using nanotechnology-based vaccines for the treatment of diseases in fish farms"
 thread = {"configurable": {"thread_id": "1"}}
 
 # Run the graph until the first interruption
@@ -269,7 +269,7 @@ for event in graph.stream(
 # We now update the state as if we are the human_feedback node
 graph.update_state(
     thread,
-    {"human_analyst_feedback": "Add in the CEO of nanotechnology native startup"},
+    {"human_analyst_feedback": "Add an Animal science doctor and biology phd"},
     as_node="human_feedback",
 )
 
