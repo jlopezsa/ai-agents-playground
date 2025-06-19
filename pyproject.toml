@@ -7,7 +7,21 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.13"
+python-dotenv = "^1.1.0"
+langchain-openai = "^0.3.17"
+langgraph = "^0.4.5"
+colorlog = "^6.9.0"
+pillow = "^11.2.1"
+streamlit = "^1.45.1"
+numexpr = "^2.10.2"
+langchain-community = "^0.3.24"
+tavily-python = "^0.7.5"
+cloudpickle = "^3.1.1"
+wikipedia = "^1.4.0"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
 
 [build-system]
 requires = ["poetry-core"]
