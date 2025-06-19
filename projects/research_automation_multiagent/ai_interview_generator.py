@@ -19,7 +19,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.graph.message import add_messages
 from PIL import Image
-from projects.research_automation_multiagent.proof_ai_analyst_generator import Analyst
+from projects.research_automation_multiagent.ai_analyst_generator import Analyst
 from pydantic import BaseModel, Field
 
 _ = load_dotenv(find_dotenv())

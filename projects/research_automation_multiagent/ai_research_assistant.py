@@ -12,19 +12,19 @@ from langgraph.constants import Send
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from PIL import Image
-from projects.research_automation_multiagent.ai_interview_generator import (
-    build_interview_graph,
-)
-from projects.research_automation_multiagent.proof_ai_analyst_generator import (
+from projects.research_automation_multiagent.ai_analyst_generator import (
     Analyst,
     create_analysts,
     human_feedback,
+)
+from projects.research_automation_multiagent.ai_interview_generator import (
+    build_interview_graph,
 )
 from typing_extensions import TypedDict
 
 _ = load_dotenv(find_dotenv())
 
-print("^^^^^^^^^^ 🏁🏁 START SECOND AGENT 🏁🏁 ^^^^^^^^^^^^")
+print("^^^^^^^^^^ 🏁🏁 START PARENT AGENT 🏁🏁 ^^^^^^^^^^^^")
 
 openai_api_key = os.environ["OPENAI_API_KEY"]
 base_url = os.environ["ORCHESTATOR_BASE_URL"]
@@ -253,10 +253,10 @@ topic = "Treatments using nanotechnology-based vaccines for the treatment of dis
 thread = {"configurable": {"thread_id": "1"}}
 
 # Run the graph until the first interruption
+print("-" * 25, "💡💡 First Analyst 💡💡", "-" * 25)
 for event in graph.stream(
     {"topic": topic, "max_analysts": max_analysts}, thread, stream_mode="values"
 ):
-
     analysts = event.get("analysts", "")
     if analysts:
         for analyst in analysts:
@@ -274,6 +274,7 @@ graph.update_state(
 )
 
 # Check
+print("-" * 25, "🤖🤖 Analyst after HIL 🤖🤖", "-" * 25)
 for event in graph.stream(None, thread, stream_mode="values"):
     analysts = event.get("analysts", "")
     if analysts:
@@ -308,3 +309,4 @@ with open("final_report.md", "w", encoding="utf-8") as f:
     f.write(report)
 
 print("Reporte guardado en final_report.md")
+print("^^^^^^^^^^ 🚩🚩 END PARENT AGENT 🚩🚩 ^^^^^^^^^^^^")
