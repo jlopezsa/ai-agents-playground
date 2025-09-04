@@ -14,16 +14,16 @@ Bienvenido a **AI Agents Playground**, un entorno experimental para el desarroll
 - `agents/`: 🤖 Implementaciones de agentes y herramientas.
 - `agents_in_action/`: 🧪 Ejemplos prácticos y pruebas de agentes.
 - `projects/`: 📁 Proyectos de automatización e investigación.
-- `app.py`, `app_memory.py`: 🖥️ Interfaces Streamlit para interactuar con los agentes.
 - `logger_config.py`: 📝 Configuración de logging con color.
 - `README.md`: 📄 Documentación principal.
 
 ## 🚀 Proyectos
 
-| Proyecto                       | Descripción                                                                      | Link                                                                                |
-| ------------------------------ | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Research Automation Multiagent | Automatización de entrevistas y generación de reportes usando agentes multi-rol. | [projects/research_automation_multiagent](projects/research_automation_multiagent/) |
-| ...                            | ...                                                                              | ...                                                                                 |
+| Proyecto                       | Descripción                                                                                                                                                            | Link                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Stateless Chat Agent           | Un agente conversacional que no recuerda nada del pasado. Cada mensaje se trata de forma independiente, útil para respuestas rápidas y sin contexto                    | [projects/stateless_chat_agent](projects/stateless_chat_agent/)                     |
+| Stateful chat agent            | Un agente conversacional que recuerda el historial de la conversación. Ideal para mantener el contexto entre mensajes y ofrecer respuestas más coherentes y naturales. | [projects/stateful_chat_agent](projects/stateful_chat_agent/)                       |
+| Research Automation Multiagent | Automatización de entrevistas y generación de reportes usando agentes multi-rol.                                                                                       | [projects/research_automation_multiagent](projects/research_automation_multiagent/) |
 
 ➕ Próximamente nuevos proyectos ...
 
