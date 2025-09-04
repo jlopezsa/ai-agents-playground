@@ -1,4 +1,26 @@
-# 🤖 AI Agents Playground
+<div align="center" class="text-center">
+<h1>AI-AGENTS-PLAYGROUND</h1>
+<p><em>Explorando y aprendiendo con agentes inteligentes. ¡Este repositorio es un espacio para ir descubriendo las características de la IA!</em></p>
+
+<img alt="last-commit" src="https://img.shields.io/github/last-commit/jlopezsa/ai-agents-playground?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="repo-top-language" src="https://img.shields.io/github/languages/top/jlopezsa/ai-agents-playground?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<img alt="repo-language-count" src="https://img.shields.io/github/languages/count/jlopezsa/ai-agents-playground?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+<p><em>Este proyecto fue creado utilizando las herramientas y tecnologías que se mencionan a continuación.:</em></p>
+
+<img alt="LangGraph" src="https://img.shields.io/badge/LangGraph-000000.svg?style=flat&logo=python&logoColor=white">
+
+<img alt="LangChain" src="https://img.shields.io/badge/LangChain-2C9F75.svg?style=flat&logo=python&logoColor=white">
+
+<img alt="Python" src="https://img.shields.io/badge/Python-3776AB.svg?style=flat&amp;logo=Python&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+
+<img alt="Poetry" src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat&amp;logo=Poetry&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+
+<img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-FF4B4B.svg?style=flat&amp;logo=Streamlit&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+
+<img alt="TOML" src="https://img.shields.io/badge/TOML-9C4121.svg?style=flat&amp;logo=TOML&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+
+<img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&amp;logo=Markdown&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+</div>
 
 Bienvenido a **AI Agents Playground**, un entorno experimental para el desarrollo y prueba de agentes inteligentes basados en LangChain, LangGraph y OpenAI. Este repositorio está diseñado para facilitar la creación, orquestación y evaluación de agentes conversacionales y herramientas de automatización en distintos dominios.
 
