@@ -1,5 +1,5 @@
 <div align="center" class="text-center">
-<img src="/images/AI PLAYGROUND AGENT.png" alt="AI Agents Playground Banner" width="100%">
+<img src="/images/ai_agents_playground.png" alt="AI Agents Playground Banner" width="100%">
 
 <!--h1>AI-AGENTS-PLAYGROUND</h1-->
 <p><em>Explorando y aprendiendo con agentes inteligentes. ¡Este repositorio es un espacio para ir descubriendo las características de la IA!</em></p>
