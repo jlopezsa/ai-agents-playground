@@ -2,10 +2,12 @@ import streamlit as st
 from agents.action_003_agents_chat_math_weather import build_agent_graph
 from langchain_core.messages import HumanMessage
 
+# Init the agent
+react_graph = build_agent_graph()
 
 # --- Configuración de página ---
 st.set_page_config(
-    page_title="🤖 Chat con Agente IA (StateFull)",
+    page_title="Chat con Agente IA (StateFull)",
     page_icon="🤖",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -43,9 +45,6 @@ st.markdown(
 )
 
 st.divider()
-
-# Init the agent
-react_graph = build_agent_graph()
 
 # Init chat session
 if "chat_history" not in st.session_state:
