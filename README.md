@@ -22,32 +22,61 @@
 <img alt="TOML" src="https://img.shields.io/badge/TOML-9C4121.svg?style=flat&amp;logo=TOML&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
 
 <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&amp;logo=Markdown&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
+
+<div align="center" class="text-center"><h4>... en construcción</h4></div>
 </div>
 
-Bienvenido a **AI Agents Playground**, un entorno experimental para el desarrollo y prueba de agentes inteligentes basados en LangChain, LangGraph y OpenAI. Este repositorio está diseñado para facilitar la creación, orquestación y evaluación de agentes conversacionales y herramientas de automatización en distintos dominios.
+---
+
+Bienvenido a **AI Agents Playground**, un entorno experimental para el desarrollo y prueba de agentes inteligentes basados en LangChain, LangGraph y OpenAI. El repositorio está diseñado para facilitar la creación, orquestación y evaluación de agentes conversacionales y herramientas de automatización en distintos dominios.
+
+Este repositorio es un espacio para practicar y reproducir los ejemplos presentados en:
+
+- Bootcamp: [Bootcamp 2025: Comprender y Crear Agentes IA Profesionales, De cero a nivel profesional: CrewAI, LangGraph, Multi-Agentes, Flows, etc.](https://www.udemy.com/course/bootcamp-2025-comprender-y-crear-agentes-ia-profesionales/?couponCode=KEEPLEARNING) creado por Julio Colomer
+- Libro [Generative AI with LangChain](https://www.oreilly.com/library/view/generative-ai-with/9781837022014/) de Ben Auffarth y Leonid Kuligin
+
+Además se encontrarán proyectos personales relacionados al tema.
+
+## Contenido:
+
+- [Contenido:](#contenido)
+- [✨ Características principales](#-características-principales)
+- [📂 Estructura del repositorio](#-estructura-del-repositorio)
+- [🚀 Proyectos](#-proyectos)
+- [🛠️ Requisitos](#️-requisitos)
+- [⚡ Instalación](#-instalación)
+- [🏃 Uso](#-uso)
 
 ## ✨ Características principales
 
-- 🧠 Ejemplos de agentes con y sin memoria.
-- 🛠️ Integración de herramientas externas (calculadora, búsqueda web, Wikipedia, etc.).
-- 🔗 Orquestación de flujos conversacionales mediante grafos de estado.
-- 📁 Proyectos de automatización e investigación en la carpeta [`projects`](projects/).
+🧠 **Agentes con y sin memoria, flujos RAG y ReACT:**  
+ Se encuentran ejemplos prácticos de agentes que pueden recordar el historial de la conversación (stateful) o funcionar sin memoria (stateless), así como flujos avanzados como RAG (Retrieval-Augmented Generation) y ReACT (Reason + Act).
+
+🛠️ **Integración de herramientas externas:**  
+ Se aprende cómo conectar agentes con utilidades como búsqueda web, Wikipedia, Tavily, entre otras APIs, ampliando sus capacidades para resolver tareas más complejas.
+
+🔗 **Orquestación de flujos conversacionales mediante grafos de estado:**  
+ Se descubre cómo diseñar y controlar conversaciones complejas utilizando grafos de estado, permitiendo que los agentes sigan rutas lógicas y colaboren entre sí.
+
+📁 **Proyectos de automatización e investigación:**  
+ Proyectos completos y casos de uso reales se encuentran en la carpeta [`projects`](projects/), donde se aplican los conceptos aprendidos, del bootcamp y del libro, para resolver problemas prácticos y experimentar con nuevas ideas.
 
 ## 📂 Estructura del repositorio
 
-- `agents/`: 🤖 Implementaciones de agentes y herramientas.
-- `agents_in_action/`: 🧪 Ejemplos prácticos y pruebas de agentes.
+A continuación se describe la organización de carpetas y archivos principales del repositorio. Cada sección agrupa ejemplos, utilidades y proyectos para facilitar la exploración y el aprendizaje sobre agentes inteligentes y sus aplicaciones.
+
+- `agents/`: 🤖 Implementaciones de agentes y herramientas. Estos agentes se utilizan en proyectos.
+- `agents_in_action/`: 🧪 Ejemplos prácticos y pruebas de agentes. En estos archivos se prueban y hacen pruebas de los agentes.
 - `projects/`: 📁 Proyectos de automatización e investigación.
 - `logger_config.py`: 📝 Configuración de logging con color.
 - `README.md`: 📄 Documentación principal.
 
 ## 🚀 Proyectos
 
-| Proyecto                       | Descripción                                                                                                                                                            | Link                                                                                |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Stateless Chat Agent           | Un agente conversacional que no recuerda nada del pasado. Cada mensaje se trata de forma independiente, útil para respuestas rápidas y sin contexto                    | [projects/stateless_chat_agent](projects/stateless_chat_agent/)                     |
-| Stateful chat agent            | Un agente conversacional que recuerda el historial de la conversación. Ideal para mantener el contexto entre mensajes y ofrecer respuestas más coherentes y naturales. | [projects/stateful_chat_agent](projects/stateful_chat_agent/)                       |
-| Research Automation Multiagent | Automatización de entrevistas y generación de reportes usando agentes multi-rol.                                                                                       | [projects/research_automation_multiagent](projects/research_automation_multiagent/) |
+- [Stateless Chat Agent](projects/stateless_chat_agent): Un agente conversacional que no recuerda nada del pasado. Cada mensaje se trata de forma independiente, útil para respuestas rápidas y sin contexto.
+- [Stateful chat agent](projects/stateful_chat_agent/): Un agente conversacional que recuerda el historial de la conversación. Ideal para mantener el contexto entre mensajes y ofrecer respuestas más coherentes y naturales.
+- [Research Automation Multiagent](projects/research_automation_multiagent/): Automatización de entrevistas y generación de reportes usando agentes multi-rol.
+- [Content Marketing Manager](https://github.com/jlopezsa/ai-content-marketing): (repositorio **ai-content-marketing**) Agentes especializados que colaboran para realizar investigaciones, redactar blogs optimizados y generar mensajes simples para ser publicadas en redes sociales.
 
 ➕ Próximamente nuevos proyectos ...
 
@@ -72,13 +101,3 @@ poetry install
    streamlit run app.py
    ```
 3. 🔍 Explora los proyectos en la carpeta [`projects`](projects/).
-
----
-
-## 🤝 Contribución
-
-Si deseas agregar nuevos agentes o proyectos, crea una nueva carpeta dentro de `projects/` y actualiza la tabla de arriba.
-
----
-
-## 📜 Licencia
