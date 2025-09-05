@@ -1,5 +1,7 @@
 <div align="center" class="text-center">
-<h1>AI-AGENTS-PLAYGROUND</h1>
+<img src="/images/AI PLAYGROUND AGENT.png" alt="AI Agents Playground Banner" width="100%">
+
+<!--h1>AI-AGENTS-PLAYGROUND</h1-->
 <p><em>Explorando y aprendiendo con agentes inteligentes. ¡Este repositorio es un espacio para ir descubriendo las características de la IA!</em></p>
 
 <img alt="last-commit" src="https://img.shields.io/github/last-commit/jlopezsa/ai-agents-playground?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
