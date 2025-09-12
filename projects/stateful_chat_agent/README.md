@@ -1,5 +1,7 @@
 # Stateful Chat Agent
 
+![motion architecture](../../images/statefull_chatbot_agent.svg)
+
 Este proyecto implementa un agente conversacional con memoria (stateful). El agente es capaz de mantener el contexto de la conversación a lo largo del tiempo, permitiéndole ofrecer respuestas más coherentes, personalizadas y contextualmente informadas.
 
 ## 🚀 Características
