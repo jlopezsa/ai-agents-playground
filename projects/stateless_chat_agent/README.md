@@ -1,5 +1,7 @@
 # Stateless Chat Agent
 
+![motion architecture](../../images/stateless_chatbot_agent.svg)
+
 Este proyecto implementa un agente conversacional sin memoria (stateless). Cada mensaje es procesado de forma aislada, sin conocimiento del historial previo. Es útil para tareas simples o consultas puntuales sin necesidad de contexto.
 
 ## 🚀 Características
@@ -7,6 +9,7 @@ Este proyecto implementa un agente conversacional sin memoria (stateless). Cada 
 - No retiene información entre turnos.
 - Cada mensaje se trata como una nueva conversación.
 - Ideal para FAQs, asistentes simples, o demostraciones básicas.
+  <a href="https://www.flaticon.com/free-animated-icons/remember" title="remember animated icons">Remember animated icons created by Freepik - Flaticon</a>
 
 ## ❓ ¿Qué es un agente stateless?
 
